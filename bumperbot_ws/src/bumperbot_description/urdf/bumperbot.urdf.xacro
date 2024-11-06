@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bumperbot">
+  <!-- 외부 - 로봇 사이를 연결하는 일종의 인터페이스 역할 -->
+  <link name="base_footprint" />
+  <!-- 실제 로봇 역할 -->
+  <link name="base_link">
+    <visual> 
+      <!-- 시각 측면에서 메시의 각도 및 좌표. rpy = 각도, xyz = 좌표 -->
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <!-- 메시 파일 위치 -->
+        <mesh filename="package://bumperbot_description/meshes/base_link.STL"/>
+      </geometry>  
+    </visual>
+  </link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <!-- parent에 대한 child의 상대 각도 / 위치 -->
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.033"/>
+  </joint>
+
+  <link name="wheel_right_link">
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://bumperbot_description/meshes/wheel_right_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+  <!-- continous => rollable -->
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="wheel_right_link"/>
+    <!-- y축 -->
+    <axis xyz="0 1 0"/> 
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.07 0.0"/>
+  </joint>
+
+  <link name="wheel_left_link">
+    <visual>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://bumperbot_description/meshes/wheel_left_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+  <!-- continous => rollable -->
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link" />
+    <child link="wheel_left_link"/>
+    <!-- y축 -->
+    <axis xyz="0 1 0"/> 
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.07 0.0"/>
+  </joint>
+
+  <link name="caster_front_link">
+    <visual>
+      <geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 0" />
+        <mesh filename="package://bumperbot_description/meshes/caster_front_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="caster_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_front_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.04755 0.0 -0.0275"/>
+  </joint>
+
+  <link name="caster_lear_link">
+    <visual>
+      <geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 0" />
+        <mesh filename="package://bumperbot_description/meshes/caster_lear_link.STL"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="caster_lear_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_lear_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="-0.04755 0.0 -0.0275"/>
+  </joint>
+</robot>
