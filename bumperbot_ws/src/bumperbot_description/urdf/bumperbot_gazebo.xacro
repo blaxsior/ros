@@ -47,4 +47,20 @@
     <minDepth>0.001</minDepth> 
     <maxVel>0.1</maxVel>
   </gazebo>
+
+  <!-- load proper control library version -->
+  <gazebo>
+    <!-- ros2 버전에 따라 다른 플러그인을 로드 -->
+    <xacro:if value="$(arg is_ignition)">
+      <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+        <parmeters></parmeters>
+      </plugin>
+    </xacro:if>
+
+    <xacro:unless value="$(arg is_ignition)">
+      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <parameters></parameters>
+      </plugin>
+    </xacro:unless>
+  </gazebo>
 </robot>

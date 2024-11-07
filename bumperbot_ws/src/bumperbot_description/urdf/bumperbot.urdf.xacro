@@ -1,7 +1,14 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bumperbot">
+  <!-- 적절한 ros2 control library를 가져오기 위한 변수. ros2 버전에 따라 다른 플러그인을 사용. -->
+  <xacro:arg name ="is_ignition" default="false"/>
+
+  <!-- gazebo params -->
   <xacro:include filename="$(find bumperbot_description)/urdf/bumperbot_gazebo.xacro"/>
+  <!-- ros2 control lib -->
+  <xacro:include filename="$(find bumperbot_description)/urdf/bumperbot_ros2_control.xacro"/>
+
   <!-- 외부 - 로봇 사이를 연결하는 일종의 인터페이스 역할 -->
   <link name="base_footprint" />
   <!-- 실제 로봇 역할 -->
