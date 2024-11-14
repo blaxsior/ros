@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<robot name="bumperbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <gazebo reference="whell_right_link">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bumperbot">
+  <gazebo reference="wheel_right_link">
     <!-- 마찰력 -->
     <mu1>100000000000000.0</mu1>
     <mu2>100000000000000.0</mu2>
@@ -14,7 +14,7 @@
     <fdirl>1 0 0</fdirl> 
   </gazebo>
 
-  <gazebo reference="whell_left_link">
+  <gazebo reference="wheel_left_link">
     <mu1>100000000000000.0</mu1>
     <mu2>100000000000000.0</mu2>
     <kp>1000000000000.0</kp>
@@ -53,13 +53,13 @@
     <!-- ros2 버전에 따라 다른 플러그인을 로드 -->
     <xacro:if value="$(arg is_ignition)">
       <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
-        <parmeters></parmeters>
+        <parmeters>$(find bumperbot_controller)/config/bumperbot_controllers.yaml</parmeters>
       </plugin>
     </xacro:if>
 
     <xacro:unless value="$(arg is_ignition)">
       <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-        <parameters></parameters>
+        <parameters>$(find bumperbot_controller)/config/bumperbot_controllers.yaml</parameters>
       </plugin>
     </xacro:unless>
   </gazebo>

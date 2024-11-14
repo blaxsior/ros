@@ -13,6 +13,9 @@ from launch.substitutions import Command, LaunchConfiguration
 
 def generate_launch_description():
   bumperbot_description_dir = get_package_share_directory("bumperbot_description")
+  ros_distro = os.environ["ROS_DISTRO"]
+  is_ignition = "True" if ros_distro == "humble" else "False"
+
   # cli argument 정의
   model_arg = DeclareLaunchArgument(
     name="model",
@@ -22,7 +25,12 @@ def generate_launch_description():
   # xacro => xacro to urdf. need model path 
 
   robot_description = ParameterValue(
-    Command(["xacro ", LaunchConfiguration("model")]), #LaunchConfiguration: 런타임에 전달되는 값을 읽음
+    Command([
+      "xacro ", 
+      LaunchConfiguration("model"),
+      " is_ignition:=", # bumperbot.urdf.xacro 파일을 urdf로 만들 때 is_ignition 변수를 설정
+      is_ignition
+    ]), #LaunchConfiguration: 런타임에 전달되는 값을 읽음
     value_type=str # 문자열 값으로 읽음
   )
 
