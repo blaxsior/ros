@@ -50,8 +50,8 @@ class SimpleController(Node):
     wheel_speed_msg.data = [wheel_speed[1, 0], wheel_speed[0, 0]]
     self.wheel_cmd_pub.publish(wheel_speed_msg)
 
-def main(args=list[str] | None):
-  rclpy.init(args)
+def main():
+  rclpy.init()
   node = SimpleController()
   rclpy.spin(node)
   node.destroy_node()

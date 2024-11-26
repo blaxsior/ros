@@ -12,6 +12,7 @@
     "*html": "html",
     "*.cs": "csharp",
     "*.rs": "rust",
-    "string": "cpp"
-  }
+    "string": "cpp",
+    "core": "cpp"
+  },
 }

@@ -51,18 +51,18 @@ def generate_launch_description():
             {"wheel_radius": wheel_radius}, 
             {"wheel_separation": wheel_separation}
         ],
-        # condition=IfCondition(use_python)
+        condition=IfCondition(use_python)
     )
 
-    # simple_controller_cpp = Node(
-    #     package="bumperbot_controller",
-    #     executable="simple_controller",
-    #     parameters=[
-    #         {"wheel_radius": wheel_radius}, 
-    #         {"wheel_separation": wheel_separation}
-    #     ],
-    #     condition=UnlessCondition(use_python)
-    # )
+    simple_controller_cpp = Node(
+        package="bumperbot_controller",
+        executable="simple_controller",
+        parameters=[
+            {"wheel_radius": wheel_radius}, 
+            {"wheel_separation": wheel_separation}
+        ],
+        condition=UnlessCondition(use_python)
+    )
 
     args = [use_python_arg, wheel_radius_arg, wheel_separation_arg]
 
@@ -72,6 +72,6 @@ def generate_launch_description():
             joint_state_broadcaster_spawner,
             simple_controller,
             simple_controller_py,
-            # simple_controller_cpp
+            simple_controller_cpp
         ]
     )
